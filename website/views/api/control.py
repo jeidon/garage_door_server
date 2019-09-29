@@ -83,7 +83,8 @@ def door_status( request, challenge_response, *args, **kwargs ):
     # Drive the gpio
     pin = settings.INPUT_PIN
     GPIO.setmode(GPIO.BCM)
-    GPIO.setup( pin, GPIO.IN)
+    GPIO.setup( pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    sleep(0.2)
 
     return jsonResponse( request, {'status': util.xbool(not GPIO.input(pin))
                                   })
