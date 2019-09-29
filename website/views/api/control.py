@@ -53,7 +53,7 @@ def toggle_door( request, challenge_response, *args, **kwargs ):
 
     # Drive the gpio
     pin = settings.OUTPUT_PIN
-    GPIO.setmode(GPIO.BOARD)
+    GPIO.setmode(GPIO.BCM)
     GPIO.setup( pin, GPIO.OUT, initial=0)
 
     # This causes the button to be pushed
@@ -82,7 +82,7 @@ def door_status( request, challenge_response, *args, **kwargs ):
 
     # Drive the gpio
     pin = settings.INPUT_PIN
-    GPIO.setmode(GPIO.BOARD)
+    GPIO.setmode(GPIO.BCM)
     GPIO.setup( pin, GPIO.IN)
 
     return jsonResponse( request, {'status': util.xbool(not GPIO.input(pin))
