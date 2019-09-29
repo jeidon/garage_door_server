@@ -7,11 +7,11 @@ For more information on this file, see
 https://docs.djangoproject.com/en/2.2/howto/deployment/wsgi/
 """
 
-import os
+import os, sys
 
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pysite.settings')
-sys.path.append("/opt/garage_door")
+sys.path.append("/opt/garage_door_server")
 
 application = get_wsgi_application()

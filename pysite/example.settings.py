@@ -22,6 +22,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'REPLACE WITH REAL KEY'
 
+#Change these if you want to use different pins on the PI
+INPUT_PIN = 3
+OUTPUT_PIN = 4
+PRESS_DURATION = 2.0 # Seconds to press the button down
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -55,7 +60,7 @@ ROOT_URLCONF = 'pysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['/opt/garage_door/website/views'],
+        'DIRS': ['/opt/garage_door_server/website/views'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -119,7 +124,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/opt/garage_door/website/static'
+STATIC_ROOT = '/opt/garage_door_server/website/static'
 
 CACHES = {
     'default': {

@@ -1,0 +1,28 @@
+# Garage door server
+
+Django implementation of a garage door opener system.
+
+Security works through a challenge response system.  
+
+
+# Modules
+
+sudo pip instal rip-gpio
+
+//On the pc, you can use to test with
+sudo pip instal rip-gpio-emu
+sudo systemctl start memcached
+sudo systemctl enable memcached
+
+# Installing on the PI
+
+sudo apt install memcached
+
+cd /opt
+
+git clone git@github.com:lukedupin/garage_door_server.git
+
+cd garage_door_server
+./manager.py migrate
+
+# Setup for the phone

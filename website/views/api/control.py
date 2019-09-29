@@ -12,6 +12,7 @@ from website.helpers.json_api import reqArgs, jsonResponse, errResponse
 from website.models import MagicKey
 from website.helpers import util
 from time import sleep
+from django.conf import settings
 
 import json, datetime, time, re, pytz, uuid, hashlib
 import RPi.GPIO as GPIO
@@ -41,8 +42,9 @@ def request_challenge( request, *args, **kwargs ):
 )
 def toggle_door( request, challenge_response, *args, **kwargs ):
     # Get the correct, answer, then delete it
-    correct = cache.get( "challenge_response" )
-    cache.delete( "challenge_response" )
+    key = "challenge_response"
+    correct = cache.get( key )
+    cache.delete( key )
 
     # Ensure they had the right answer
     if correct != challenge_response or \
@@ -50,12 +52,13 @@ def toggle_door( request, challenge_response, *args, **kwargs ):
         return errResponse( request, "Invalid challenge response")
 
     # Drive the gpio
-    pin = 28
+    pin = settings.OUTPUT_PIN
     GPIO.setmode(GPIO.BOARD)
     GPIO.setup( pin, GPIO.OUT, initial=0)
 
+    # This causes the button to be pushed
     GPIO.output(pin, True)
-    sleep(2)
+    sleep(settings.PRESS_DURATION)
     GPIO.output(pin, False)
 
     return jsonResponse( request, {})
@@ -68,8 +71,9 @@ def toggle_door( request, challenge_response, *args, **kwargs ):
 )
 def door_status( request, challenge_response, *args, **kwargs ):
     # Get the correct, answer, then delete it
-    correct = cache.get( "challenge_response" )
-    cache.delete( "challenge_response" )
+    key = "challenge_response"
+    correct = cache.get( key )
+    cache.delete( key )
 
     # Ensure they had the right answer
     if correct != challenge_response or \
@@ -77,22 +81,26 @@ def door_status( request, challenge_response, *args, **kwargs ):
         return errResponse( request, "Invalid challenge response")
 
     # Drive the gpio
-    pin = 27
+    pin = settings.INPUT_PIN
     GPIO.setmode(GPIO.BOARD)
     GPIO.setup( pin, GPIO.IN)
 
-    return jsonResponse( request, {'status': util.xbool(GPIO.input(pin))
+    return jsonResponse( request, {'status': util.xbool(not GPIO.input(pin))
                                   })
 
 @csrf_exempt
-@reqArgs()
-def download_magic_key( request, *args, **kwargs ):
+@reqArgs( post_req=[
+    ('challenge', str),
+],
+)
+def download_magic_key( request, challenge, *args, **kwargs ):
     # Get the correct, answer, then delete it
-    result = cache.get( "magic_key" )
-    cache.delete( "magic_key" )
+    key = "magic_key"
+    result = cache.get( key )
+    cache.delete( key )
 
     # Ensure they had the right answer
-    if result != 'download_key':
+    if result != challenge:
         return errResponse( request, "Invalid challenge response")
 
     return jsonResponse( request, {'magic_key': MagicKey.getMagicKey()
