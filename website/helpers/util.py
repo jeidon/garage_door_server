@@ -1,4 +1,4 @@
-import datetime, calendar, math, zipfile, os, re, pytz, smtplib
+import datetime, calendar, math, zipfile, os, re, pytz, smtplib, hashlib
 from django.conf import settings
 from django.utils.timezone import utc
 
@@ -192,3 +192,17 @@ def humanDate( date=None, add_sec=0, force_hours=False, force_full=False ):
         return "%d second" % int(date % 60)
     else:
         return '0'
+
+
+def createHash( arg1=None, arg2=None ):
+    # Default args
+    if arg1 is None:
+        arg1 = unixNow()
+    if arg2 is None:
+        arg2 = settings.SECRET_KEY
+
+    # Do hashing
+    m = hashlib.sha256()
+    m.update( xstr(arg1).encode('utf-8', 'ignore') )
+    m.update( xstr(arg2).encode('utf-8', 'ignore') )
+    return m.hexdigest()

@@ -1,0 +1,1 @@
+from website.models.magic_key import MagicKey
