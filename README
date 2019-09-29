@@ -7,10 +7,10 @@ Security works through a challenge response system.
 
 # Modules
 
-sudo pip instal rip-gpio
+sudo pip3 instal rip-gpio
 
-//On the pc, you can use to test with
-sudo pip instal rip-gpio-emu
+sudo pip3 install Django=2.2.5
+sudo pip3 install python-memcached
 sudo systemctl start memcached
 sudo systemctl enable memcached
 
@@ -23,6 +23,16 @@ cd /opt
 git clone git@github.com:lukedupin/garage_door_server.git
 
 cd garage_door_server
+
+// Setup settings
+cd pysite
+cp example.settings.py settings.py
+// Edit the settings as needed (Basically just create a SECRET_KEY)
+cd ..
+
 ./manager.py migrate
+
+./manager.py enable_download_magic_key SHORT_CHALLENGE
+./manager.py runserver YOUR_IP:8000
 
 # Setup for the phone
