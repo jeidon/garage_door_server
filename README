@@ -7,16 +7,17 @@ Security works through a challenge response system.
 
 # Modules
 
-sudo pip3 instal rip-gpio
-
-sudo pip3 install Django=2.2.5
+sudo pip3 instal rpi-gpio
+sudo pip3 install Django==2.2.5
 sudo pip3 install python-memcached
-sudo systemctl start memcached
-sudo systemctl enable memcached
+sudo pip3 install twilio     
 
 # Installing on the PI
 
+sudo apt update
 sudo apt install memcached
+sudo systemctl start memcached
+sudo systemctl enable memcached
 
 cd /opt
 
@@ -36,3 +37,11 @@ cd ..
 ./manager.py runserver YOUR_IP:8000
 
 # Setup for the phone
+
+Enter SHORT_CHALLENGE
+You're now setup
+
+# Setup godaddy IP address update
+https://github.com/CarlEdman/godaddy-ddns
+
+# Setup garage door change detection with check_garage_door_status

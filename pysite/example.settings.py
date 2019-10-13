@@ -27,6 +27,11 @@ INPUT_PIN = 3
 OUTPUT_PIN = 4
 PRESS_DURATION = 2.0 # Seconds to press the button down
 
+TWILIO_SID = ''
+TWILIO_TOKEN = ''
+TWILIO_FROM = ''
+TWILIO_TO = []
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
