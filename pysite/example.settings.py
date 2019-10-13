@@ -24,8 +24,8 @@ SECRET_KEY = 'REPLACE WITH REAL KEY'
 
 #Change these if you want to use different pins on the PI
 INPUT_PIN = 3
-OUTPUT_PIN = 4
-PRESS_DURATION = 2.0 # Seconds to press the button down
+OUTPUT_PIN = 17 
+PRESS_DURATION = 1.0 # Seconds to press the button down
 
 TWILIO_SID = ''
 TWILIO_TOKEN = ''
