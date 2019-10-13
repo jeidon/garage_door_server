@@ -4,6 +4,7 @@ from django.conf import settings
 from django.core.cache import cache
 from twilio.rest import Client
 from website.helpers import util
+from time import sleep
 import RPi.GPIO as GPIO
 
 # Create a systemd script to run this every minute
@@ -21,6 +22,12 @@ class Command(BaseCommand):
         # Get the cache, and the current door status
         key = 'garage_door_status'
         last_status = cache.get( key )
+
+        # Drive the gpio
+        pin = settings.INPUT_PIN
+        GPIO.setmode( GPIO.BCM )
+        GPIO.setup( pin, GPIO.IN, pull_up_down=GPIO.PUD_UP )
+        sleep( 0.2 )
         status = not util.xbool( GPIO.input( settings.INPUT_PIN ) )
 
         # Update the cache
