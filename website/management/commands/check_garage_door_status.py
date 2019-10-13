@@ -21,7 +21,7 @@ class Command(BaseCommand):
         # Get the cache, and the current door status
         key = 'garage_door_status'
         last_status = cache.get( key )
-        status = util.xbool( GPIO.input( settings.INPUT_PIN ) )
+        status = not util.xbool( GPIO.input( settings.INPUT_PIN ) )
 
         # Update the cache
         cache.set( key, status )

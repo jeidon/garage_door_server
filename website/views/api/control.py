@@ -86,7 +86,7 @@ def door_status( request, challenge_response, *args, **kwargs ):
     GPIO.setup( pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
     sleep(0.2)
 
-    return jsonResponse( request, {'status': util.xbool(GPIO.input(pin))
+    return jsonResponse( request, {'status': not util.xbool(GPIO.input(pin))
                                   })
 
 @csrf_exempt
