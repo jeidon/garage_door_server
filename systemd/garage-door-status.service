@@ -1,0 +1,5 @@
+[Unit]
+Description=Check the garage door status
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/garage_door_server/manage.py check_garage_door_status

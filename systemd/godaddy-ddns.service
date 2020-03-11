@@ -1,0 +1,5 @@
+[Unit]
+Description=Update the godaddy api address
+
+[Service]
+ExecStart=/usr/bin/python3 /home/pi/godaddy-ddns/godaddy_ddns.py --key KEY --secret SECRET URL.YOUR_URL.com
