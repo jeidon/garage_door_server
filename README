@@ -51,10 +51,10 @@ Change SECRET_KEY and the OPEN_PIN, CLOSE_PIN, and OUTPUT_PIN values to match yo
 ```
 cd ..
 
-./manager.py migrate
+./manage.py migrate
 
-./manager.py enable_download_magic_key SHORT_CHALLENGE
-./manager.py runserver YOUR_IP:8000
+./manage.py enable_download_magic_key SHORT_CHALLENGE
+./manage.py runserver YOUR_IP:8000
 ```
 
 ## Setup for the phone
