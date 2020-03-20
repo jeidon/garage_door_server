@@ -4,46 +4,62 @@ Django implementation of a garage door opener system.
 
 Security works through a challenge response system.  
 
-# Prepare the Pi
+## Prepare the Pi
 
+```
 sudo apt update
 sudo apt install git memcached python3-pip
 sudo systemctl start memcached
 sudo systemctl enable memcached
+```
 
-# Install the Required Modules
+## Install the Required Modules
 
+```
 sudo pip3 install rpi-gpio Django==2.2.5 python-memcached
+```
 
-# If using Twilio
+## If using Twilio
 
-sudo pip3 install twilio     
+```
+sudo pip3 install twilio
+```
 
-# Clone and configure the server
+## Clone and configure the server
 
+```
 cd /opt
+sudo mkdir garage_door_server
+sudo chown pi garage_door_server/
 
-git clone git@github.com:lukedupin/garage_door_server.git
+git clone https://github.com/jeidon/garage_door_server.git
 
 cd garage_door_server
+```
 
-// Setup settings
+### Setup settings
+
+```
 cd pysite
 cp example.settings.py settings.py
-// Edit the settings as needed (Basically just create a SECRET_KEY)
+```
+
+### Edit the settings as needed 
+
+Change SECRET_KEY and the OPEN_PIN, CLOSE_PIN, and OUTPUT_PIN values to match your own
+
+```
 cd ..
 
 ./manager.py migrate
 
 ./manager.py enable_download_magic_key SHORT_CHALLENGE
 ./manager.py runserver YOUR_IP:8000
+```
 
-# Setup for the phone
+## Setup for the phone
 
 Enter SHORT_CHALLENGE
 You're now setup
 
-# Setup godaddy IP address update
-https://github.com/CarlEdman/godaddy-ddns
-
-# Setup garage door change detection with check_garage_door_status
+## Setup garage door change detection with check_garage_door_status
