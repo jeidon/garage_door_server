@@ -4,20 +4,22 @@ Django implementation of a garage door opener system.
 
 Security works through a challenge response system.  
 
-
-# Modules
-
-sudo pip3 instal rpi-gpio
-sudo pip3 install Django==2.2.5
-sudo pip3 install python-memcached
-sudo pip3 install twilio     
-
-# Installing on the PI
+# Prepare the Pi
 
 sudo apt update
-sudo apt install memcached
+sudo apt install git memcached python3-pip
 sudo systemctl start memcached
 sudo systemctl enable memcached
+
+# Install the Required Modules
+
+sudo pip3 install rpi-gpio Django==2.2.5 python-memcached
+
+# If using Twilio
+
+sudo pip3 install twilio     
+
+# Clone and configure the server
 
 cd /opt
 
